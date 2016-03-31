@@ -1,2 +1,1 @@
-50:b7:c3:71:c0:0d	Ethernet
-20:68:9d:bb:6f:5f	Wireless
+
