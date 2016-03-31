@@ -1,0 +1,19 @@
+# From /etc/rc.d/rc.local
+
+addrEth=$(cat MAC.txt | awk 'FNR == 1 {print $1}')
+addrWlan=$(cat MAC.txt | awk 'FNR == 2 {print $1}')
+
+sudo ifconfig eth0 down
+sudo ifconfig eth0 hw ether $addrEth
+sudo ifconfig eth0 up
+
+sudo ifconfig wlan0 down
+sudo ifconfig wlan0 hw ether $addrWlan
+sudo ifconfig wlan0 up
+
+echo "Your MAC addresses have been changed back to:"
+echo "Ethernet: "
+sudo ifconfig | grep ether | awk 'FNR == 1 {print $2}'
+echo "Wireless: "
+sudo ifconfig | grep ether | awk 'FNR == 2 {print $2}'
+

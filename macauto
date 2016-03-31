@@ -1,0 +1,28 @@
+# This script will change your MAC address to a random value from 
+# a list of vendors.
+
+# From /etc/rc.d/rc.local
+
+sudo echo "Your old MAC addresses are:" 
+echo "Ethernet: "
+sudo ifconfig | grep ether | awk 'FNR == 1 {print $2}'
+echo "Wireless: "
+sudo ifconfig | grep ether | awk 'FNR == 2 {print $2}'
+
+addrEth=$(~/MACInstallWifiAndEth/RandMAC.py)
+addrWlan=$(~/MACInstallWifiAndEth/RandMAC.py)
+
+sudo ifconfig eth0 down
+sudo ifconfig eth0 hw ether $addrEth
+sudo ifconfig eth0 up
+
+sudo ifconfig wlan0 down
+sudo ifconfig wlan0 hw ether $addrWlan
+sudo ifconfig wlan0 up
+
+
+echo "Your new MAC addresses are:"
+echo "Ethernet: "
+sudo ifconfig | grep ether | awk 'FNR == 1 {print $2}'
+echo "Wireless: "
+sudo ifconfig | grep ether | awk 'FNR == 2 {print $2}'
